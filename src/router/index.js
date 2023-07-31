@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppLayout from "../components/AppLayout.vue";
 import Dashboard from "../views/Dashboard.vue";
-import Products from "../views/Products.vue";
+import Products from "../views/Products/Products.vue";
 import Login from "../views/Login.vue";
 import RequestPassword from "../views/RequestPassword.vue";
 import ResetPassword from "../views/ResetPassword.vue";
@@ -67,11 +67,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next) => {
+
     if(to.meta.requireAuth && !store.state.user.token){
         next({name:'login'})
     }else if( to.meta.requiresGuest && store.state.user.token){
         next({name:'app.dashboard'})
     }else{
+    
         next()
     }
 })
